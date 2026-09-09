@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Archivo, Manrope } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/components/cart/CartContext";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -24,21 +27,26 @@ export const metadata: Metadata = {
     template: "%s · Revolve",
   },
   description:
-    "Revolve — clothing, footwear and lifestyle. Born in Mzansi, built for everyday. From our streets to the world.",
+    "Revolve — premium South African streetwear. Clothing, footwear and lifestyle. Born in Mzansi, built for everyday. Move different.",
   metadataBase: new URL("https://revolve-store.vercel.app"),
+  openGraph: {
+    title: "Revolve — Move Different",
+    description: "Premium South African streetwear. Clothing, footwear and lifestyle.",
+    type: "website",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${archivo.variable} ${manrope.variable}`}>
-      <body className="font-body bg-ink text-neutral-100 antialiased">
-        <Header />
-        <main className="min-h-[60vh]">{children}</main>
-        <Footer />
+      <body className="bg-ink font-body text-neutral-100 antialiased">
+        <CartProvider>
+          <AnnouncementBar />
+          <Header />
+          <main className="min-h-[60vh]">{children}</main>
+          <Footer />
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

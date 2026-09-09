@@ -3,11 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import type { Product, Category } from "@/lib/types";
-import {
-  getCategories,
-  getCategory,
-  getProductsByCategory,
-} from "@/services/catalogue";
+import { getCategories, getCategory, getProductsByCategory } from "@/services/catalogue";
 
 export function generateStaticParams() {
   return (getCategories() as Category[]).map((c) => ({ category: c.slug }));
@@ -21,10 +17,7 @@ export async function generateMetadata({
   const { category: slug } = await params;
   const category = getCategory(slug) as Category | undefined;
   if (!category) return { title: "Category" };
-  return {
-    title: category.name,
-    description: category.description,
-  };
+  return { title: category.name, description: category.description };
 }
 
 export default async function CategoryPage({
@@ -39,37 +32,40 @@ export default async function CategoryPage({
   const products = getProductsByCategory(category.id) as Product[];
 
   return (
-    <div className="mx-auto max-w-shell px-5 py-14">
-      <p className="text-xs text-neutral-500">
-        <Link href="/shop" className="hover:text-gold">Shop</Link>
-        <span className="mx-2">/</span>
-        <span className="text-neutral-300">{category.name}</span>
-      </p>
-      <h1 className="mt-3 font-display text-3xl font-black text-white md:text-4xl">
-        {category.name}
-      </h1>
-      <p className="mt-3 max-w-xl text-sm text-neutral-400">{category.description}</p>
-
-      {products.length === 0 ? (
-        <div className="mt-12 rounded-lg border border-dashed border-line bg-surface px-6 py-16 text-center">
-          <p className="font-display text-lg font-bold text-white">Dropping soon</p>
-          <p className="mt-2 text-sm text-neutral-400">
-            The {category.name.toLowerCase()} line is on its way. Check back shortly.
+    <div>
+      <section className="border-b border-line bg-ink-2">
+        <div className="shell py-14">
+          <p className="text-xs text-neutral-500">
+            <Link href="/shop" className="hover:text-gold">Shop</Link>
+            <span className="mx-2">/</span>
+            <span className="text-neutral-300">{category.name}</span>
           </p>
-          <Link
-            href="/shop"
-            className="mt-6 inline-block rounded-full border border-line px-6 py-2.5 text-sm font-medium text-neutral-200 hover:border-gold hover:text-gold"
-          >
-            Browse everything
-          </Link>
+          <h1 className="mt-3 font-display text-4xl font-black uppercase tracking-tight text-white md:text-5xl">
+            {category.name}
+          </h1>
+          <p className="mt-4 max-w-xl text-sm text-neutral-400">{category.description}</p>
         </div>
-      ) : (
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}
+      </section>
+
+      <section className="shell py-12">
+        {products.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-line bg-panel px-6 py-20 text-center">
+            <p className="eyebrow">Coming soon</p>
+            <p className="mt-3 font-display text-2xl font-black text-white">The {category.name.toLowerCase()} line is dropping soon</p>
+            <p className="mx-auto mt-3 max-w-md text-sm text-neutral-400">
+              We’re putting the finishing touches on this collection. Join the movement below to be first
+              when it lands.
+            </p>
+            <Link href="/shop" className="btn-ghost mt-8">Browse everything</Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {products.map((p, i) => (
+              <ProductCard key={p.id} product={p} priority={i < 4} />
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

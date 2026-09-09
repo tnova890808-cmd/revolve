@@ -9,44 +9,88 @@
 
 html {
   color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: #0a0a0a;
+  background: #0a0a0b;
   color: #f4f4f4;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Brand utilities */
-.eyebrow {
-  font-family: var(--font-body);
-  text-transform: uppercase;
-  letter-spacing: 0.24em;
-  font-size: 0.72rem;
-  color: #c6a15b;
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply font-body text-[11px] font-semibold uppercase tracking-wide2 text-gold;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-black hover:bg-gold-soft hover:shadow-gold;
+  }
+  .btn-light {
+    @apply btn bg-cream text-black hover:bg-white;
+  }
+  .btn-ghost {
+    @apply btn border border-line text-neutral-100 hover:border-gold hover:text-gold;
+  }
+
+  .link-nav {
+    @apply relative text-sm font-medium tracking-wide text-neutral-300 transition-colors duration-200 hover:text-white;
+  }
+  .link-nav::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300;
+  }
+  .link-nav:hover::after {
+    @apply w-full;
+  }
+
+  .hairline {
+    @apply border-line;
+  }
 }
 
-.wordmark {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: 0.14em;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 ::selection {
   background: #c6a15b;
-  color: #0a0a0a;
+  color: #0a0a0b;
 }
 
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid #c6a15b;
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
