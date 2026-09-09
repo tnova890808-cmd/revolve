@@ -1,0 +1,21 @@
+{
+  "name": "revolve",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Revolve clothing, footwear and lifestyle brand web project.",
+  "type": "module",
+  "scripts": {
+    "dev": "echo \"No dev script configured yet\" && exit 0",
+    "build": "echo \"No build script configured yet\" && exit 0",
+    "start": "echo \"No start script configured yet\" && exit 0"
+  },
+  "keywords": [
+    "revolve",
+    "clothing",
+    "footwear",
+    "lifestyle",
+    "fashion"
+  ],
+  "author": "",
+  "license": "UNLICENSED"
+}

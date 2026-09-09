@@ -1,2 +1,40 @@
-.vercel
-.env*
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment variables / secrets
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*
+!.env.example
+
+# Vercel
+.vercel/
+
+# Logs
+logs/
+*.log
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+
+# Supabase local
+.supabase/
+
+# Keys / certificates
+*.pem
+*.key
