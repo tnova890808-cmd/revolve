@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: #0a0a0a;
+  color: #f4f4f4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Brand utilities */
+.eyebrow {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 0.72rem;
+  color: #c6a15b;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+::selection {
+  background: #c6a15b;
+  color: #0a0a0a;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #c6a15b;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
